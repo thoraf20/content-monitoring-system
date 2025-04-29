@@ -12,7 +12,7 @@ import (
 
 func ReverseProxy(serviceName string) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		target := viper.GetString("services." + serviceName)
+		target := viper.GetString("services."+serviceName)
 		if target == "" {
 			c.JSON(http.StatusBadGateway, gin.H{"error": "Unknown service"})
 			return
@@ -24,10 +24,17 @@ func ReverseProxy(serviceName string) gin.HandlerFunc {
 			return
 		}
 
+		// Strip only `/api` prefix, keep serviceName
+		originalPath := c.Request.URL.Path
+		strippedPath := strings.TrimPrefix(originalPath, "/api")
+		if strippedPath == "" {
+			strippedPath = "/" // fallback if empty
+		}
+		c.Request.URL.Path = strippedPath
+
+		c.Request.Host = remote.Host
 		proxy := httputil.NewSingleHostReverseProxy(remote)
 
-		c.Request.URL.Path = strings.TrimPrefix(c.Request.URL.Path, "/api/"+serviceName)
-		c.Request.Host = remote.Host
 		proxy.ServeHTTP(c.Writer, c.Request)
 	}
 }

@@ -1,4 +1,4 @@
-module github.com/thoraf20/content-monitoring-system
+module github.com/thoraf20/content-monitoring-system/content-upload
 
 go 1.24.2
 

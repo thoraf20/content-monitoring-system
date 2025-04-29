@@ -3,7 +3,7 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/thoraf20/content-monitoring-system/api-gateway/handlers"
-	"github.com/thoraf20/content-monitoring-system/api-gateway/internal/middleware"
+	// "github.com/thoraf20/content-monitoring-system/api-gateway/internal/middleware"
 )
 
 func SetupRoutes(r *gin.Engine) {
@@ -22,8 +22,8 @@ func SetupRoutes(r *gin.Engine) {
 
 	// Secured services
 	protected := api.Group("/")
-	protected.Use(middleware.RequireAuth(), middleware.RateLimitMiddleware())
+	// protected.Use(middleware.RequireAuth(), middleware.RateLimitMiddleware())
 	{
-		protected.Any("/upload/*path", handlers.ReverseProxy("upload"))
+		protected.POST("/upload", handlers.ReverseProxy("upload"))
 	}
 }
