@@ -33,8 +33,8 @@ func main() {
 
 	r := gin.New()
 	r.Use(gin.Recovery())
-	r.Use(middleware.Logger())         // Custom logger middleware // Optional rate limiter
-	r.Use(middleware.CORSMiddleware()) // Optional CORS
+	r.Use(middleware.Logger())
+	r.Use(middleware.CORSMiddleware())
 
 	// Register routes
 	router.SetupRoutes(r)
