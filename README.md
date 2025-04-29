@@ -4,19 +4,16 @@ A scalable, modular, and intelligent content monitoring system designed to analy
 
 
 🚀 Features
-🧠 AI-Powered Moderation (text, image, video)
 
 ⚙️ Microservices Architecture for scalability and maintainability
 
-📩 Event-driven communication with Kafka or RabbitMQ
+📩 Event-driven communication with Redis stream
 
 📊 Moderator Dashboard to review flagged content
 
-🔁 Feedback loop & retraining for continuous model improvement
-
 🔐 API Gateway for centralized authentication and request routing
 
-🗃️ Object Storage Integration for media files (e.g. AWS S3 o Cloudinary)
+🗃️ Local storage for media files
 
 
 📐 High-Level Architecture
@@ -32,7 +29,7 @@ A scalable, modular, and intelligent content monitoring system designed to analy
                                  (Event) |
                                         v        
                         +--------------------------+   
-                        |     Kafka/RabbitMQ       |
+                        |     Redis stream         |
                         +--------------------------+
                              |          |          |
                           Text        Image/Video  Flagging
@@ -64,18 +61,15 @@ A scalable, modular, and intelligent content monitoring system designed to analy
 🧱 Tech Stack
 Backend: Go (Golang for all services)
 
-Event Streaming: Kafka / RabbitMQ
+Event Streaming: Redis stream
 
-Storage: AWS S3 / Google Cloud Storage / Cloudinary
+Storage: Internal file
 
-Database: PostgreSQL / MongoDB
+Database:MongoDB
 
 Authentication: JWT / OAuth
 
-Containerization: Docker + Kubernetes
-
 Dashboard: React (Vite)
-
 
 🛠️ Microservices
 
@@ -83,12 +77,11 @@ Service	                      Description
 --------                      -------------
 API Gateway	                  Central entry point for routing and security
 Content Upload Service	      Handles user uploads and triggers moderation events
-Text Moderation Service	      Uses NLP to detect spam, hate speech, profanity
-Image Moderation Service	    Uses CV models or APIs to detect explicit imagery
-Video Moderation Service	    Processes videos for inappropriate content
+Text Moderation Service	      Uses basic regex to validate and detect wrong words
+Image Moderation Service	   Uses basic image extension validation
+Video Moderation Service	   Uses basic video extension validation
 Flagging Service	            Stores and tracks flagged content for moderator review
 Moderation Dashboard	        Web UI for moderators to approve or reject flagged content
-Retraining Service	          Improves models based on moderator feedback
 
 🌐 API Gateway
 The API Gateway is the central entry point for all client-facing requests. It abstracts internal microservices, manages authentication and authorization, enforces rate limits, and routes requests appropriately.
