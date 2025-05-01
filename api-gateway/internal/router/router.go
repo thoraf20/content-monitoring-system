@@ -26,5 +26,6 @@ func SetupRoutes(r *gin.Engine) {
 	{
 		protected.POST("/upload", handlers.ReverseProxy("upload"))
 		protected.Any("/storage/*proxyPath", handlers.ReverseProxy("storage"))
+		protected.Any("/review/*proxyPath", handlers.ReverseProxy("review"))
 	}
 }
