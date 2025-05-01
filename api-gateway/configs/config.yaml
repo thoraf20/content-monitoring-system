@@ -3,3 +3,4 @@ GIN_MODE: "debug"
 
 services:
   upload: http://localhost:5002
+  storage: http://localhost:5003

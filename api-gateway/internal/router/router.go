@@ -25,5 +25,6 @@ func SetupRoutes(r *gin.Engine) {
 	// protected.Use(middleware.RequireAuth(), middleware.RateLimitMiddleware())
 	{
 		protected.POST("/upload", handlers.ReverseProxy("upload"))
+		protected.Any("/storage/*proxyPath", handlers.ReverseProxy("storage"))
 	}
 }
