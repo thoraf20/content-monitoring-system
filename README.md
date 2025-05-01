@@ -175,7 +175,7 @@ Retrieve all flagged content
 
 Unit Tests: Per service using Go's built-in testing framework
 
-Integration Tests: Ensure message passing between services via Kafka
+Integration Tests: Ensure message passing between services via redis stream
 
 End-to-End Tests: Simulate upload → moderation → flagging
 
